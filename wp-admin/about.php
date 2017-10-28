@@ -9,190 +9,186 @@
 /** WordPress Administration Bootstrap */
 require_once( dirname( __FILE__ ) . '/admin.php' );
 
-wp_enqueue_style( 'wp-mediaelement' );
-wp_enqueue_script( 'wp-mediaelement' );
-wp_localize_script( 'mediaelement', '_wpmejsSettings', array(
-	'pluginPath' => includes_url( 'js/mediaelement/', 'relative' ),
-	'pauseOtherPlayers' => ''
-) );
-
-if ( current_user_can( 'install_plugins' ) ) {
-	add_thickbox();
-	wp_enqueue_script( 'plugin-install' );
+if ( ! wp_is_mobile() ) {
+	wp_enqueue_style( 'wp-mediaelement' );
+	wp_enqueue_script( 'mediaelement-vimeo' );
+	wp_enqueue_script( 'wp-mediaelement' );
+	wp_localize_script( 'mediaelement', '_wpmejsSettings', array(
+		'pluginPath'        => includes_url( 'js/mediaelement/', 'relative' ),
+		'classPrefix'       => 'mejs-',
+		'stretching'        => 'responsive',
+		'pauseOtherPlayers' => '',
+	) );
 }
 
-$video_url = 'https://videopress.com/embed/J44FHXvg?hd=true';
-$locale    = str_replace( '_', '-', get_locale() );
-list( $locale ) = explode( '-', $locale );
-if ( 'en' !== $locale ) {
-	$video_url = add_query_arg( 'defaultLangCode', $locale, $video_url );
+$video_url = 'https://videopress.com/embed/AHz0Ca46?hd=true';
+$lang_code = str_replace( '_', '-', get_user_locale() );
+list( $lang_code ) = explode( '-', $lang_code );
+if ( 'en' !== $lang_code ) {
+	$video_url = add_query_arg( 'defaultLangCode', $lang_code, $video_url );
 }
-
-wp_oembed_add_host_js();
 
 $title = __( 'About' );
 
-list( $display_version ) = explode( '-', $wp_version );
+list( $display_version ) = explode( '-', get_bloginfo( 'version' ) );
 
 include( ABSPATH . 'wp-admin/admin-header.php' );
 ?>
 	<div class="wrap about-wrap">
 		<h1><?php printf( __( 'Welcome to WordPress&nbsp;%s' ), $display_version ); ?></h1>
 
-		<div class="about-text"><?php printf( __( 'Thank you for updating! WordPress %s makes your site more connected and responsive.' ), $display_version ); ?></div>
+		<p class="about-text"><?php printf( __( 'Thank you for updating to the latest version! WordPress %s will smooth your design workflow and keep you safe from coding errors.' ), $display_version ); ?></p>
 		<div class="wp-badge"><?php printf( __( 'Version %s' ), $display_version ); ?></div>
 
-		<h2 class="nav-tab-wrapper">
+		<h2 class="nav-tab-wrapper wp-clearfix">
 			<a href="about.php" class="nav-tab nav-tab-active"><?php _e( 'What&#8217;s New' ); ?></a>
 			<a href="credits.php" class="nav-tab"><?php _e( 'Credits' ); ?></a>
 			<a href="freedoms.php" class="nav-tab"><?php _e( 'Freedoms' ); ?></a>
+			<a href="privacy.php" class="nav-tab"><?php _e( 'Privacy' ); ?></a>
 		</h2>
 
-		<div class="headline-feature feature-video">
-			<iframe width="1050" height="591" src="<?php echo esc_url( $video_url ); ?>" frameborder="0" allowfullscreen></iframe>
-			<script src="https://videopress.com/videopress-iframe.js"></script>
-		</div>
-
-		<hr>
-
-		<div class="headline-feature feature-section one-col">
-			<h2><?php _e( 'Twenty Sixteen' ); ?></h2>
-			<div class="media-container">
-				<img src="https://s.w.org/images/core/4.4/twenty-sixteen-white-fullsize-2x.png" alt="" srcset="https://s.w.org/images/core/4.4/twenty-sixteen-white-smartphone-1x.png 268w, https://s.w.org/images/core/4.4/twenty-sixteen-white-smartphone-2x.png 536w, https://s.w.org/images/core/4.4/twenty-sixteen-white-tablet-1x.png 558w, https://s.w.org/images/core/4.4/twenty-sixteen-white-desktop-1x.png 840w, https://s.w.org/images/core/4.4/twenty-sixteen-white-fullsize-1x.png 1086w, https://s.w.org/images/core/4.4/twenty-sixteen-white-tablet-2x.png 1116w, https://s.w.org/images/core/4.4/twenty-sixteen-white-desktop-2x.png 1680w, https://s.w.org/images/core/4.4/twenty-sixteen-white-fullsize-2x.png 2172w" sizes="(max-width: 500px) calc((100vw - 40px) * .8), (max-width: 782px) calc((100vw - 70px) * .8), (max-width: 960px) calc((100vw - 116px) * .8), (max-width: 1290px) calc((100vw - 240px) * .8), 840px" />
-			</div>
-			<div class="two-col">
-				<div class="col">
-					<h3><?php _e( 'Introducing Twenty Sixteen' ); ?></h3>
-					<p><?php _e( 'Our newest default theme, Twenty Sixteen, is a modern take on a classic blog design.' ); ?></p>
-					<p><?php _e( 'Twenty Sixteen was built to look great on any device. A fluid grid design, flexible header, fun color schemes, and more, will make your content shine.' ); ?></p>
-					<div class="horizontal-image">
-						<div class="content">
-							<img class="feature-image horizontal-screen" src="https://s.w.org/images/core/4.4/twenty-sixteen-dark-fullsize-2x.png" alt=""  srcset="https://s.w.org/images/core/4.4/twenty-sixteen-dark-smartphone-1x.png 268w, https://s.w.org/images/core/4.4/twenty-sixteen-dark-smartphone-2x.png 535w, https://s.w.org/images/core/4.4/twenty-sixteen-dark-desktop-1x.png 558w, https://s.w.org/images/core/4.4/twenty-sixteen-dark-fullsize-1x.png 783w, https://s.w.org/images/core/4.4/twenty-sixteen-dark-desktop-2x.png 1116w, https://s.w.org/images/core/4.4/twenty-sixteen-dark-fullsize-2x.png 1566w" sizes="(max-width: 500px) calc((100vw - 40px) * .8), (max-width: 782px) calc((100vw - 70px) * .8), (max-width: 960px) calc((100vw - 116px) * .5216), (max-width: 1290px) calc((100vw - 240px) * .5216), 548px" />
-						</div>
-					</div>
-				</div>
-				<div class="col feature-image">
-					<img class="vertical-screen" src="https://s.w.org/images/core/4.4/twenty-sixteen-red-fullsize-2x.png" alt="" srcset="https://s.w.org/images/core/4.4/twenty-sixteen-red-smartphone-1x.png 107w, https://s.w.org/images/core/4.4/twenty-sixteen-red-smartphone-2x.png 214w, https://s.w.org/images/core/4.4/twenty-sixteen-red-desktop-1x.png 252w, https://s.w.org/images/core/4.4/twenty-sixteen-red-fullsize-1x.png 410w, https://s.w.org/images/core/4.4/twenty-sixteen-red-desktop-2x.png 504w, https://s.w.org/images/core/4.4/twenty-sixteen-red-fullsize-2x.png 820w" sizes="(max-width: 500px) calc((100vw - 40px) * .32), (max-width: 782px) calc((100vw - 70px) * .32), (max-width: 960px) calc((100vw - 116px) * .24), (max-width: 1290px) calc((100vw - 240px) * .24), 252px" />
-				</div>
+		<div class="feature-section one-col">
+			<div class="col">
+				<h2><?php _e( 'Major Customizer Improvements, Code Error Checking, and More!' ); ?></h2>
+				<p><?php _e( 'Welcome to an improved Customizer workflow with design drafts,  locking, scheduling, and preview links.  What&#8217;s more, code syntax highlighting and error checking will make for a clean and smooth site building experience. Finally, if all that wasn&#8217;t pretty great, we&#8217;ve got a great new Gallery widget and improvements to theme browsing and switching.' ); ?></p>
 			</div>
 		</div>
 
 		<hr />
 
+		<h2><?php _e( 'Customizer Workflow Improved' ); ?></h2>
+
+		<div class="headline-feature one-col">
+			<div class="col">
+				
+			</div>
+		</div>
+
 		<div class="feature-section two-col">
 			<div class="col">
-				<div class="media-container">
-					<img src="https://s.w.org/images/core/4.4/responsive-devices-fullsize-2x.png" alt="" srcset="https://s.w.org/images/core/4.4/responsive-devices-smartphone-1x.png 335w, https://s.w.org/images/core/4.4/responsive-devices-desktop-1x.png 500w, https://s.w.org/images/core/4.4/responsive-devices-smartphone-2x.png 670w, https://s.w.org/images/core/4.4/responsive-devices-tablet-1x.png 698w, https://s.w.org/images/core/4.4/responsive-devices-desktop-2x.png 1000w, https://s.w.org/images/core/4.4/responsive-devices-fullsize-1x.png 1200w, https://s.w.org/images/core/4.4/responsive-devices-tablet-2x.png 1396w, https://s.w.org/images/core/4.4/responsive-devices-fullsize-2x.png 2400w" sizes="(max-width: 500px) calc(100vw - 40px), (max-width: 782px) calc(100vw - 70px), (max-width: 960px) calc((100vw - 116px) * .476), (max-width: 1290px) calc((100vw - 240px) * .476), 500px" />
-				</div>
+				<h3><?php _e( 'Draft and Schedule Site Design Customization' ); ?></h3>
+				<p><?php _e( 'Yes, you read that right. Just like you can draft and revise posts and schedule them to go live on the date and time you choose, you can now tinker with your site&#8217;s design and schedule those design changes to go live as you please.' ); ?></p>
 			</div>
 			<div class="col">
-				<h3><?php _e( 'Responsive images' ); ?></h3>
-				<p><?php _e( 'WordPress now takes a smarter approach to displaying appropriate image sizes on any device, ensuring a perfect fit every time. You don&#8217;t need to do anything to your theme, it just works.' ); ?></p>
+				<h3><?php _e( 'Collaborate with Design Preview Links' ); ?></h3>
+				<p><?php _e( 'Need to get some feedback on proposed site design changes? WordPress 4.9 gives you a preview link you can send to your team and customers so that you can collect and integrate feedback before you schedule the changes to go live. Can we say collaboration&#43;&#43;?' ); ?></p>
+			</div>
+			<div class="col">
+				<h3><?php _e( 'One Design Lock To Protect Them All' ); ?></h3>
+				<p><?php _e( 'Ever encounter a scenario where two designers walk into a project and designer A overrides designer B&#8217;s beautiful changes? WordPress 4.9&#8217;s design lock feature (similar to post locking) secures your draft design so that no one can make changes to it or erase all your hard work.' );?></p>
+			</div>
+			<div class="col">
+				<h3><?php _e( 'Protection for Unsaved Design Changes' ); ?></h3>
+				<p><?php 
+					/* Translators: Donuts are a deliciously irresistible fried treat. They can be somewhat like cake, where crumbs can get into places like your keyboard. Insert your favorite local pastry here. */ 
+					_e( 'Those fresh donuts in the break room lured you away from your desk before you saved your new draft design. Fear not, when you return, WordPress 4.9 will politely ask whether or not you&#8217;d like to save your unsaved changes. We haven&#8217;t however, got a solution for donut crumbs in your keyboard. (Yet.)' ); 
+					?></p>
+			</div>
+		</div>
+
+		<hr />
+		
+		<h2><?php _e( 'Coding Enhancements for CSS Editing and the Custom HTML Widget' ); ?></h2>
+
+		<div class="feature-section three-col">
+			<div class="col">
+				<h3><?php _e( 'Syntax Highlighting and Error Checking? Yes, Please!' ); ?></h3>
+				<p><?php _e( 'You&#8217;ve got a display problem but can&#8217;t quite figure out exactly what went wrong in the CSS you lovingly wrote. With syntax highlighting and error checking for CSS editing and the Custom HTML widget introduced in WordPress 4.8.1, you&#8217;ll  pinpoint coding  errors quickly. Practically guaranteed to help you scan code more easily and suss out and fix code errors quickly.' ); ?></p>
+			</div>
+			<div class="col">
+				<h3><?php _e( 'Sandbox for Safety' ); ?></h3>
+				<p><?php _e( 'The dreaded white screen. You&#8217;ll avoid it when working on themes and plugin code because WordPress 4.9 will warn you about saving an error. You&#8217;ll sleep better at night.' ); ?></p>
+			</div>
+			<div class="col">
+				<h3><?php _e( 'Warning: Potential Danger Ahead! ' ); ?></h3>
+				<p><?php 
+					/* Translators: Walking across the Grand Canyon on a tightrope is a very dangerous activity: https://www.usatoday.com/story/news/nation/2013/06/23/wallenda-tightrope-colorado-river-gorge/2450505/ 
+						* If this concept doesn't translate well in your language, please insert a very dangerous, yet slightly humorous alternative. */
+					_e( 'When you edit themes and plugins directly, WordPress 4.9 will politely warn you of that you&#8217;re walking the coding equivalent of a tightrope over the Grand Canyon, and let you know that you have a safety net available if you draft and test changes  before update your file. Take the safe route: You&#8217;ll thank you. Your team and customers will thank you.' )
+					;?></p>
 			</div>
 		</div>
 
 		<hr />
 
+		<h2><?php _e( 'Oh Hey There, Gallery Widget!' ); ?></h2>
+
 		<div class="feature-section two-col">
 			<div class="col">
-				<div class="embed-container">
-					<blockquote data-secret="OcUe7B6Edh" class="wp-embedded-content"><a href="https://wordpress.org/news/2015/12/clifford/">WordPress 4.4 &ldquo;Clifford&rdquo;</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="display:none;" src="https://wordpress.org/news/2015/12/clifford/embed/#?secret=OcUe7B6Edh" data-secret="OcUe7B6Edh" width="600" height="338" title="<?php esc_attr_e( 'Embedded WordPress Post' ); ?>" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
-				</div>
+				<h3><?php _e( 'Gallery? Gallerah, Rah!' ); ?></h3>
+				<p><?php _e( 'An incremental improvement to the media changes hatched in WordPress 4.8, you can now add a gallery via widget. Yes!' ); ?></p>
 			</div>
 			<div class="col">
-				<h3><?php _e( 'Embed your WordPress content' ); ?></h3>
-				<p><?php _e( 'Now you can embed your posts on other sites, even other WordPress sites. Simply drop a post URL into the editor and see an instant embed preview, complete with the title, excerpt, and featured image if you&#8217;ve set one. We&#8217;ll even include your site icon and links for comments and sharing.' ); ?></p>
+				<h3><?php _e( 'Press a Button, Add Media' ); ?></h3>
+				<p><?php _e( 'Want to add media to your text widget? Embed images, video, and audio directly into the widget along with your text, with our decidedly unfancy, yet wholly utilitarian Add Media button. Woo!' ); ?></p>
 			</div>
 		</div>
 
 		<hr />
 
+		<h2><?php _e( 'Theme Improvements: Previews and Persistent Widgets and Menus' ); ?></h2>
+
 		<div class="feature-section two-col">
 			<div class="col">
-				<div class="embed-container embed-reverbnation">
-					<iframe width="640" height="150" scrolling="no" frameborder="no" src="https://www.reverbnation.com/widget_code/html_widget/artist_607?widget_id=55&amp;pwc[song_ids]=3731874&amp;pwc[size]=small"></iframe>
-				</div>
+				<h3><?php _e( 'Oh Say, Can You Theme Switch?' ); ?></h3>
+				<p><?php _e( 'When you switch themes, widgets sometimes think they can just up and move location. Improvements in WordPress 4.9 offer more persistent menu and widget placement when you decide it&#8217;s time for a new theme.  Additionally, you can preview installed themes or download, install, and preview new themes right. Nothing says handy like being able to preview before you deploy. ' ); ?></p>
 			</div>
 			<div class="col">
-				<h3><?php _e( 'Even more embed providers' ); ?></h3>
-				<p><?php _e( 'In addition to post embeds, WordPress 4.4 also adds support for five new oEmbed providers: Cloudup, Reddit&nbsp;Comments, ReverbNation, Speaker&nbsp;Deck, and VideoPress.' ); ?></p>
+				<h3><?php _e( 'Better Menu Instructions Equal Less Confusion' ); ?></h3>
+				<p><?php _e( 'Were you confused by the steps to create a new menu? Perhaps no longer! We&#8217;ve ironed out the UX for a smoother menu creation process.  Freshly pressed copy will guide you with grace and aplomb.' ); ?></p>
 			</div>
 		</div>
 
 		<hr />
 
 		<div class="changelog">
-			<h3><?php _e( 'Under the Hood' ); ?></h3>
+			<h2><?php
+				printf(
+					/* translators: %s: smiling face with smiling eyes emoji */
+					__( 'Even More Developer Happiness %s' ),
+					'&#x1F60A'
+				);
+			?></h2>
 
-			<div class="feature-section under-the-hood one-col">
+			<div class="under-the-hood three-col">
 				<div class="col">
-					<h4><?php _e( 'REST API infrastructure' ); ?></h4>
-					<div class="two-col-text">
-						<p><?php _e( 'Infrastructure for the REST API has been integrated into core, marking a new era in developing with WordPress. The REST API serves to provide developers with a path forward for building and extending RESTful APIs on top of WordPress.' ); ?></p>
-						<p><?php
-							if ( current_user_can( 'install_plugins' ) ) {
-								$url_args = array(
-									'tab'       => 'plugin-information',
-									'plugin'    => 'rest-api',
-									'TB_iframe' => true,
-									'width'     => 600,
-									'height'    => 550
-								);
-
-								$plugin_link = '<a href="' . esc_url( add_query_arg( $url_args, network_admin_url( 'plugin-install.php' ) ) ) . '" class="thickbox">WordPress REST API</a>';
-							} else {
-								$plugin_link = '<a href="https://wordpress.org/plugins/rest-api">WordPress REST API</a>';
-							}
-
-							/* translators: WordPress REST API plugin link */
-							printf( __( 'Infrastructure is the first part of a multi-stage rollout for the REST API. Inclusion of core endpoints is targeted for an upcoming release. To get a sneak peek of the core endpoints, and for more information on extending the REST API, check out the official %s plugin.' ), $plugin_link );
-						?></p>
-					</div>
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
+				</div>
+				<div class="col">
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
+				</div>
+				<div class="col">
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
+				</div>
+				<div class="col">
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
+				</div>
+				<div class="col">
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
+				</div>
+				<div class="col">
+					<h3><a href="#"><?php _e( 'Heading' ); ?></a></h3>
+					<p><?php _e( 'Paragraph' ); ?></p>
 				</div>
 			</div>
-
-			<div class="feature-section under-the-hood three-col">
-				<div class="col">
-					<h4><?php _e( 'Term meta' ); ?></h4>
-					<p><?php
-						/* translators: 1: add_term_meta() docs link, 2: get_term_meta() docs link, 3: update_term_meta() docs link */
-						printf( __( 'Terms now support metadata, just like posts. See %1$s, %2$s, and %3$s for more information.' ),
-							'<a href="https://developer.wordpress.org/reference/functions/add_term_meta"><code>add_term_meta()</code></a>',
-							'<a href="https://developer.wordpress.org/reference/functions/get_term_meta"><code>get_term_meta()</code></a>',
-							'<a href="https://developer.wordpress.org/reference/functions/update_term_meta"><code>update_term_meta()</code></a>'
-				         );
-					?></p>
-				</div>
-				<div class="col">
-					<h4><?php _e( 'Comment query improvements' ); ?></h4>
-					<p><?php
-						/* translators: WP_Comment_Query class name */
-						printf( __( 'Comment queries now have cache handling to improve performance. New arguments in %s make crafting robust comment queries simpler.' ), '<code>WP_Comment_Query</code>' );
-					?></p>
-				</div>
-				<div class="col">
-					<h4><?php _e( 'Term, comment, and network objects' ); ?></h4>
-					<p><?php
-						/* translators: 1: WP_Term class name, WP_Comment class name, WP_Network class name */
-						printf( __( 'New %1$s, %2$s, and %3$s objects make interacting with terms, comments, and networks more predictable and intuitive in code.' ),
-							'<code>WP_Term</code>',
-							'<code>WP_Comment</code>',
-							'<code>WP_Network</code>'
-						);
-					?></p>
-				</div>
-			</div>
-
-			<div class="return-to-dashboard">
-				<?php if ( current_user_can( 'update_core' ) && isset( $_GET['updated'] ) ) : ?>
-					<a href="<?php echo esc_url( self_admin_url( 'update-core.php' ) ); ?>">
-						<?php is_multisite() ? _e( 'Return to Updates' ) : _e( 'Return to Dashboard &rarr; Updates' ); ?>
-					</a> |
-				<?php endif; ?>
-				<a href="<?php echo esc_url( self_admin_url() ); ?>"><?php is_blog_admin() ? _e( 'Go to Dashboard &rarr; Home' ) : _e( 'Go to Dashboard' ); ?></a>
-			</div>
-
 		</div>
+
+		<hr />
+
+		<div class="return-to-dashboard">
+			<?php if ( current_user_can( 'update_core' ) && isset( $_GET['updated'] ) ) : ?>
+				<a href="<?php echo esc_url( self_admin_url( 'update-core.php' ) ); ?>">
+					<?php is_multisite() ? _e( 'Return to Updates' ) : _e( 'Return to Dashboard &rarr; Updates' ); ?>
+				</a> |
+			<?php endif; ?>
+			<a href="<?php echo esc_url( self_admin_url() ); ?>"><?php is_blog_admin() ? _e( 'Go to Dashboard &rarr; Home' ) : _e( 'Go to Dashboard' ); ?></a>
+		</div>
+
 	</div>
 <?php
 

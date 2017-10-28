@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'database_name_here');
+define('DB_NAME', 'db');
 
 /** MySQL database username */
-define('DB_USER', 'username_here');
+define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'password_here');
+define('DB_PASSWORD', 'fireba11');
 
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'marxistutopia');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -46,14 +46,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'put your unique phrase here');
-define('SECURE_AUTH_KEY',  'put your unique phrase here');
-define('LOGGED_IN_KEY',    'put your unique phrase here');
-define('NONCE_KEY',        'put your unique phrase here');
-define('AUTH_SALT',        'put your unique phrase here');
-define('SECURE_AUTH_SALT', 'put your unique phrase here');
-define('LOGGED_IN_SALT',   'put your unique phrase here');
-define('NONCE_SALT',       'put your unique phrase here');
+define('AUTH_KEY',         '+T~ K] eKLq^OX`8bEI#jFo{kC4muibO>I4-xM)ZYF``|^?5N:rstG?&AZ2,|p@K');
+define('SECURE_AUTH_KEY',  '+)@iP]~/KU^,A-4SNyx+o[5ASRJa?7|/r&}s5).k6$m/`BfPiG@YnNVvS* jkw&G');
+define('LOGGED_IN_KEY',    '[;t%{JP?BEUf`gT%P_P9nvs,Mdlfb[: <M,3D|AY y5Bt4Bp{CTA:C04:vCXLr 8');
+define('NONCE_KEY',        'VU&|2L{&<-TK{S`^gc>`Hbf;Z(TSvOl_9O?-8jq5SMih|VsxZ#W0x5!+Q/k/1YG~');
+define('AUTH_SALT',        'pU4Ie-G0&s5&q,5NAY?|5-cXzjWf)-3edPH][Mfk+95qkY|IJh+~ne8Har+L_aa`');
+define('SECURE_AUTH_SALT', 'EiFC]OiT|YudN@O|z-HKfA},4T6Ly5]Dy?x&CIg*F.K:qwx&;4#5M<XrEl9~qQWX');
+define('LOGGED_IN_SALT',   'w$0+hw*<aMWKCm}l|]/P&~q(7SYaYCWt-vOAt?4j#7+^d-L{4:yNbUNR| o0liau');
+define('NONCE_SALT',       'ee+pqam|G~lghtc^HF9mV(t*`GYs+%:icOs Da$yFTaF@JBf{}+Vsx!sQ8E*K?nC');
 
 /**#@-*/
 
@@ -83,7 +83,7 @@ define('WP_DEBUG', false);
 
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+    define('ABSPATH', dirname(__FILE__) . '/');
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
