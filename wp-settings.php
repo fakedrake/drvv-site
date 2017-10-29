@@ -55,6 +55,7 @@ wp_unregister_GLOBALS();
 
 // Standardize $_SERVER variables across setups.
 wp_fix_server_vars();
+$_SERVER['HTTPS'] = 'on';
 
 // Check if we have received a request due to missing favicon.ico
 wp_favicon_request();
