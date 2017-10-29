@@ -23,3 +23,4 @@ require_once( get_template_directory() . "/includes/core.php" );        // Core 
 require_once( get_template_directory() . "/includes/hooks.php" );       // Hooks
 require_once( get_template_directory() . "/includes/meta.php" );        // Custom Post Metas
 require_once( get_template_directory() . "/includes/landing-page.php" );// Landing Page outputs
+add_post_type_support( 'page', 'excerpt' );
