@@ -20,13 +20,10 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 
-$url = getenv('JAWSDB_URL');
-$dbparts = parse_url($url);
-
-$hostname = $dbparts['host'];
-$username = $dbparts['user'];
-$password = $dbparts['pass'];
-$database = ltrim($dbparts['path'],'/');
+$hostname = 'localhost';
+$username = 'wordpress';
+$database = 'wordpress';
+$password = '';
 
 /** The name of the database for WordPress */
 define('DB_NAME', $database);
